@@ -1,0 +1,27 @@
+class Solution(object):
+    def trans_pos(self, num, chars):
+        if num == 0:
+            return ''
+        elif num <= 3:
+            return chars[0] * num
+        elif num == 4:
+            return chars[:-1]
+        elif num <=8:
+            return chars[1] + (chars[0] * (num - 5))
+        else:
+            return chars[0] + chars[2]
+
+    def intToRoman(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        romans = {1: 'IVX', 10: 'XLC', 100: 'CDM', 1000: 'M'}
+        base = 1
+        r = ""
+        while num:
+            pos_num = num % 10
+            r = self.trans_pos(pos_num, romans[base]) + r
+            base *= 10
+            num /= 10
+        return r
