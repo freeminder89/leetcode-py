@@ -1,0 +1,27 @@
+class Solution(object):
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        i = 0
+        j = len(height) - 1
+        m = min(height[i], height[j]) * (j - i)
+        while i < j - 1:
+            mv_i = min(height[i], height[j]) == height[i]
+            if mv_i:
+                for k in xrange(i + 1, j):
+                    if height[k] > height[i]:
+                        i = k
+                        break
+                if k != i:
+                    break
+            else:
+                for k in xrange(j - 1, i, -1):
+                    if height[k] > height[j]:
+                        j = k
+                        break
+                if k != j:
+                    break
+            m = max(m, (j - i) * min(height[i], height[j]))
+        return m
